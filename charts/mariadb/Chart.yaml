@@ -1,0 +1,20 @@
+---
+annotations:
+  category: "Database"
+apiVersion: "v2"
+dependencies:
+  - name: "common"
+    repository: "https://charts.bitnami.com/bitnami"
+    tags:
+      - "bitnami-common"
+    version: "2.x.x"
+description: "A Helm chart for running MariaDB database"
+keywords:
+  - "mariadb"
+  - "database"
+  - "sql"
+name: "mariadb"
+sources:
+  - "https://mariadb.org"
+version: "0.0.0"
+...
