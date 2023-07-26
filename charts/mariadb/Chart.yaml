@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
+# SPDX-License-Identifier: Apache-2.0
 ---
 annotations:
   category: "Database"
@@ -9,12 +11,12 @@ dependencies:
       - "bitnami-common"
     version: "2.x.x"
 description: "A Helm chart for running MariaDB database"
+home: "https://zendis.de"
 keywords:
   - "mariadb"
   - "database"
   - "sql"
 name: "mariadb"
-sources:
-  - "https://mariadb.org"
+type: "application"
 version: "0.0.0"
 ...

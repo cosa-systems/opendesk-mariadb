@@ -1,54 +1,45 @@
+{{/*
+SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
+SPDX-License-Identifier: Apache-2.0
+*/}}
 ---
 apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
-kind: StatefulSet
+kind: "StatefulSet"
 metadata:
   name: {{ include "common.names.fullname" . }}
-  namespace: {{ .Release.Namespace | quote }}
+  namespace: {{ include "common.names.namespace" . | quote }}
   labels: {{- include "common.labels.standard" . | nindent 4 }}
-  {{- if .Values.annotations }}
-  annotations:
-    {{- include "common.tplvalues.render" ( dict "value" .Values.annotations "context" $ ) | nindent 4 }}
+    {{- if .Values.commonLabels }}
+    {{- include "common.tplvalues.render" ( dict "value" .Values.commonLabels "context" . ) | nindent 4 }}
+    {{- end }}
+  {{- if .Values.commonAnnotations }}
+  annotations: {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" . ) | nindent 4 }}
   {{- end }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   serviceName: {{ include "common.names.fullname" . }}
   {{- if .Values.updateStrategy }}
-  updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
+  updateStrategy: {{ include "common.tplvalues.render" (dict "value" .Values.updateStrategy "context" . ) | nindent 4 }}
   {{- end }}
   selector:
-    matchLabels: {{- include "common.labels.matchLabels" . | nindent 6 }}
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
   template:
     metadata:
-      name: {{ include "common.names.fullname" . }}
-      labels: {{- include "common.labels.standard" . | nindent 8 }}
-      {{- if or .Values.configuration .Values.podAnnotations }}
+      {{- if or .Values.mariadb.configuration .Values.podAnnotations }}
       annotations:
-        {{- if .Values.configuration }}
-        checksum/configuration: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- if .Values.mariadb.configuration }}
+        checksum/configuration: {{ include (print .Template.BasePath "/configmap.yaml") . | sha256sum }}
         {{- end }}
         {{- if .Values.podAnnotations }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.podAnnotations "context" $ ) | nindent 8 }}
+        {{- include "common.tplvalues.render" (dict "value" .Values.podAnnotations "context" . ) | nindent 8 }}
         {{- end }}
       {{- end }}
+      labels:
+        {{- include "common.labels.standard" . | nindent 8 }}
     spec:
       {{- if .Values.extraPodSpec }}
-      {{- include "common.tplvalues.render" (dict "value" .Values.extraPodSpec "context" $) | nindent 6 }}
-      {{- end }}
-      {{- if .Values.serviceAccount.create }}
-      serviceAccountName: {{ include "common.names.fullname" . }}
-      {{- end }}
-      {{- include "common.images.renderPullSecrets" ( dict "images" (list .Values.image) "context" $) | nindent 6 }}
-      {{- if .Values.affinity }}
-      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" $) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.nodeSelector }}
-      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.tolerations }}
-      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
-      {{- end }}
-      {{- if .Values.topologySpreadConstraints }}
-      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.topologySpreadConstraints "context" .) | nindent 8 }}
+      {{- include "common.tplvalues.render" (dict "value" .Values.extraPodSpec "context" . ) | nindent 6 }}
       {{- end }}
       {{- if .Values.priorityClassName }}
       priorityClassName: {{ .Values.priorityClassName }}
@@ -56,26 +47,50 @@ spec:
       {{- if .Values.schedulerName }}
       schedulerName: {{ .Values.schedulerName | quote }}
       {{- end }}
-      {{- if .Values.terminationGracePeriodSeconds }}
-      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- if or .Values.imagePullSecrets .Values.global.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range .Values.global.imagePullSecrets }}
+        - name: "{{ . }}"
+        {{- end }}
+        {{- range .Values.imagePullSecrets }}
+        - name: "{{ . }}"
+        {{- end }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity: {{- include "common.tplvalues.render" (dict "value" .Values.affinity "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "common.tplvalues.render" (dict "value" .Values.tolerations "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints: {{- include "common.tplvalues.render" (dict "value" .Values.topologySpreadConstraints "context" . ) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "common.tplvalues.render" (dict "value" .Values.nodeSelector "context" . ) | nindent 8 }}
       {{- end }}
       {{- if .Values.podSecurityContext.enabled }}
       securityContext: {{- omit .Values.podSecurityContext "enabled" | toYaml | nindent 8 }}
       {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "common.names.fullname" . }}
+      {{- end }}
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      {{- end }}
       hostNetwork: {{ .Values.hostNetwork }}
       hostIPC: {{ .Values.hostIPC }}
       containers:
-        - name: mariadb
-          image: {{ include "common.images.image" (dict "imageRoot" .Values.image "global" .Values.global ) }}
-          imagePullPolicy: {{ .Values.image.imagePullPolicy | quote }}
+        - name: "mariadb"
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
           {{- end }}
+          image: "{{ coalesce .Values.image.registry .Values.global.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           env:
-            - name: MARIADB_ROOT_PASSWORD
+            - name: "MARIADB_ROOT_PASSWORD"
               value: {{ tpl .Values.mariadb.rootPassword . }}
             {{- if .Values.extraEnvVars }}
-            {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" $) | nindent 12 }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" . ) | nindent 12 }}
             {{- end }}
           {{- if or .Values.extraEnvVarsCM .Values.extraEnvVarsSecret }}
           envFrom:
@@ -89,10 +104,13 @@ spec:
             {{- end }}
           {{- end }}
           ports:
-            - name: tcp-mariadb
-              containerPort: {{ .Values.containerPorts.mariadb }}
+            {{- range $key, $value := .Values.service.ports }}
+            - name: {{ $key }}
+              containerPort: {{ $value.containerPort }}
+              protocol: {{ $value.protocol }}
+            {{- end }}
           {{- if .Values.startupProbe.enabled }}
-          startupProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.startupProbe "enabled") "context" $) | nindent 12 }}
+          startupProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.startupProbe "enabled") "context" . ) | nindent 12 }}
             exec:
               command:
                 - /bin/sh
@@ -100,7 +118,7 @@ spec:
                 - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
-          livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.livenessProbe "enabled") "context" $) | nindent 12 }}
+          livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.livenessProbe "enabled") "context" . ) | nindent 12 }}
             exec:
               command:
                 - /bin/sh
@@ -108,7 +126,7 @@ spec:
                 - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.readinessProbe.enabled }}
-          readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.readinessProbe "enabled") "context" $) | nindent 12 }}
+          readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.readinessProbe "enabled") "context" . ) | nindent 12 }}
             exec:
               command:
                 - /bin/sh
@@ -116,48 +134,56 @@ spec:
                 - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.resources }}
-          resources: {{- toYaml .Values.resources | nindent 12 }}
+          resources: {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" . ) | nindent 12 }}
           {{- end }}
           {{- if .Values.lifecycleHooks }}
-          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" $) | nindent 12 }}
+          lifecycle: {{- include "common.tplvalues.render" (dict "value" .Values.lifecycleHooks "context" . ) | nindent 12 }}
           {{- end }}
           volumeMounts:
+            - name: "tmp"
+              mountPath: "/tmp"
+            - name: "run-mysqld"
+              mountPath: "/run/mysqld"
             {{- if .Values.persistence.enabled }}
-            - name: data
-              mountPath: /var/lib/mysql
+            - name: "data"
+              mountPath: "/var/lib/mysql"
             {{- end }}
-            {{- if or .Values.configuration }}
-            - name: mariadb-config
-              mountPath: /etc/mysql/conf.d/custom.cnf
+            {{- if or .Values.mariadb.configuration }}
+            - name: "mariadb-config"
+              mountPath: "/etc/mysql/conf.d/custom.cnf"
             {{- end }}
             {{- if .Values.extraVolumeMounts }}
-            {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" $) | nindent 12 }}
+            {{- include "common.tplvalues.render" (dict "value" .Values.extraVolumeMounts "context" . ) | nindent 12 }}
             {{- end }}
       volumes:
-        {{- if .Values.configuration }}
-        - name: mariadb-config
+        - name: "tmp"
+          emptyDir: {}
+        - name: "run-mysqld"
+          emptyDir: {}
+        {{- if .Values.mariadb.configuration }}
+        - name: "mariadb-config"
           configMap:
             name: {{ include "common.names.fullname" . }}
         {{- end }}
         {{- if .Values.extraVolumes }}
-        {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" $ ) | nindent 8 }}
+        {{- include "common.tplvalues.render" ( dict "value" .Values.extraVolumes "context" . ) | nindent 8 }}
         {{- end }}
   {{- if and .Values.persistence.enabled .Values.persistence.existingClaim }}
-        - name: data
+        - name: "data"
           persistentVolumeClaim:
-            claimName: {{ tpl .Values.persistence.existingClaim $ }}
+            claimName: {{ tpl .Values.persistence.existingClaim . }}
   {{- else if not .Values.persistence.enabled }}
-        - name: data
+        - name: "data"
           emptyDir: {}
   {{- else }}
   volumeClaimTemplates:
     - metadata:
         name: data
         {{- if .Values.persistence.annotations }}
-        annotations: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.annotations "context" $) | nindent 10 }}
+        annotations: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.annotations "context" . ) | nindent 10 }}
         {{- end }}
         {{- if .Values.persistence.labels }}
-        labels: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.labels "context" $) | nindent 10 }}
+        labels: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.labels "context" . ) | nindent 10 }}
         {{- end }}
       spec:
         accessModes:
@@ -165,13 +191,13 @@ spec:
           - {{ . | quote }}
         {{- end }}
         {{- if .Values.persistence.dataSource }}
-        dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" $) | nindent 10 }}
+        dataSource: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.dataSource "context" . ) | nindent 10 }}
         {{- end }}
         resources:
           requests:
             storage: {{ .Values.persistence.size | quote }}
         {{- if .Values.persistence.selector }}
-        selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.selector "context" $) | nindent 10 }}
+        selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.selector "context" . ) | nindent 10 }}
         {{- end }}
         {{- include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) | nindent 8 }}
   {{- end }}
