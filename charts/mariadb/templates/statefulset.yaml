@@ -148,7 +148,7 @@ spec:
             - name: "data"
               mountPath: "/var/lib/mysql"
             {{- end }}
-            {{- if or .Values.mariadb.configuration }}
+            {{- if .Values.mariadb.configuration }}
             - name: "mariadb-config"
               mountPath: "/etc/mysql/conf.d/custom.cnf"
             {{- end }}
