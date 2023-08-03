@@ -1,3 +1,10 @@
+## [2.0.1](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.0...v2.0.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* **mariadb:** Terminate bootstrap job when timeout is reached ([b37c855](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/commit/b37c855564c643aa04778f34489599ef0e5cc8d5))
+
 # [2.0.0](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v1.0.1...v2.0.0) (2023-07-26)
 
 
