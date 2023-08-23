@@ -1,3 +1,10 @@
+## [2.0.2](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.1...v2.0.2) (2023-08-23)
+
+
+### Bug Fixes
+
+* **mariadb:** Update default security profile settings ([1f775a3](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/commit/1f775a351066e3adf05b53aa7e815884b24ca793))
+
 ## [2.0.1](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.0...v2.0.1) (2023-08-03)
 
 

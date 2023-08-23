@@ -30,8 +30,13 @@ helm install my-release mariadb/mariadb
 | commonAnnotations | object | `{}` | Additional custom annotations to add to all deployed objects. |
 | commonLabels | object | `{}` | Additional custom labels to add to all deployed objects. |
 | containerSecurityContext.allowPrivilegeEscalation | bool | `false` | Enable container privileged escalation. |
+| containerSecurityContext.capabilities | object | `{"drop":["ALL"]}` | Security capabilities for container. |
 | containerSecurityContext.enabled | bool | `true` | Enable security context. |
 | containerSecurityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only. |
+| containerSecurityContext.runAsGroup | int | `1001` | Process group id. |
+| containerSecurityContext.runAsNonRoot | bool | `true` | Run container as user. |
+| containerSecurityContext.runAsUser | int | `1001` | Process user id. |
+| containerSecurityContext.seccompProfile.type | string | `"RuntimeDefault"` | Disallow custom Seccomp profile by setting it to RuntimeDefault. |
 | extraEnvVars | list | `[]` | Array with extra environment variables to add to containers.  extraEnvVars:   - name: FOO     value: "bar"  |
 | extraEnvVarsCM | string | `""` | Name of existing ConfigMap containing extra env vars. |
 | extraEnvVarsSecret | string | `""` | Name of existing Secret containing extra env vars. |
@@ -82,8 +87,7 @@ helm install my-release mariadb/mariadb
 | podLabels | object | `{}` | Pod Labels. Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/ |
 | podSecurityContext.enabled | bool | `true` | Enable security context. |
 | podSecurityContext.fsGroup | int | `1001` | If specified, all processes of the container are also part of the supplementary group. |
-| podSecurityContext.runAsGroup | int | `1001` | Process group id |
-| podSecurityContext.runAsUser | int | `1001` | Process user id |
+| podSecurityContext.fsGroupChangePolicy | string | `"OnRootMismatch"` | Change ownership and permission of the volume before being exposed inside a Pod. |
 | priorityClassName | string | `""` | Define PriorityClass name for pod. Ref: https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass |
 | readinessProbe.enabled | bool | `true` | Enables kubernetes ReadinessProbe. |
 | readinessProbe.failureThreshold | int | `6` | Number of failed executions until container is terminated. |
@@ -109,8 +113,8 @@ helm install my-release mariadb/mariadb
 | service.sessionAffinityConfig | object | `{}` | Session affinity configuration. |
 | service.type | string | `"ClusterIP"` | Choose the kind of Service, one of "ClusterIP", "NodePort" or "LoadBalancer". |
 | serviceAccount.annotations | object | `{}` | Additional custom annotations for the ServiceAccount. |
-| serviceAccount.automountServiceAccountToken | bool | `true` | Allows auto mount of ServiceAccountToken on the serviceAccount created. Can be set to false if pods using this serviceAccount do not need to use K8s API. |
-| serviceAccount.create | bool | `false` | Enable creation of ServiceAccount for pod. |
+| serviceAccount.automountServiceAccountToken | bool | `false` | Allows auto mount of ServiceAccountToken on the serviceAccount created. Can be set to false if pods using this serviceAccount do not need to use K8s API. |
+| serviceAccount.create | bool | `true` | Enable creation of ServiceAccount for pod. |
 | serviceAccount.labels | object | `{}` | Additional custom labels for the ServiceAccount. |
 | startupProbe.enabled | bool | `true` | Enables kubernetes ReadinessProbe. |
 | startupProbe.failureThreshold | int | `15` | Number of failed executions until container is terminated. |
