@@ -39,6 +39,9 @@ containerSecurityContext:
   # -- Enable security context.
   enabled: true
 
+  # -- Run in privileged mode.
+  privileged: false
+
   # -- Process user id.
   runAsUser: 1001
 
@@ -110,7 +113,7 @@ image:
   imagePullPolicy: "IfNotPresent"
 
   # -- Define image tag.
-  tag: "11.0"
+  tag: "11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"
 
 # -- Credentials to fetch images from private registry.
 # Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
@@ -148,7 +151,7 @@ job:
     imagePullPolicy: "IfNotPresent"
 
     # -- Define image tag.
-    tag: "11.0"
+    tag: "11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"
 
   # -- Amount of retries while waiting for mariadb server is available.
   retries: 6

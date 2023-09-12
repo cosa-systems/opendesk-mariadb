@@ -115,7 +115,7 @@ spec:
               command:
                 - /bin/sh
                 - -ec
-                - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
+                - mariadb-admin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.livenessProbe "enabled") "context" . ) | nindent 12 }}
@@ -123,7 +123,7 @@ spec:
               command:
                 - /bin/sh
                 - -ec
-                - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
+                - mariadb-admin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.readinessProbe "enabled") "context" . ) | nindent 12 }}
@@ -131,7 +131,7 @@ spec:
               command:
                 - /bin/sh
                 - -ec
-                - mysqladmin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
+                - mariadb-admin status -uroot -p"${MARIADB_ROOT_PASSWORD}"
           {{- end }}
           {{- if .Values.resources }}
           resources: {{- include "common.tplvalues.render" (dict "value" .Values.resources "context" . ) | nindent 12 }}
