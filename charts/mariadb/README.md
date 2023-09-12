@@ -1,6 +1,5 @@
 <!--
 SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
-
 SPDX-License-Identifier: Apache-2.0
 -->
 # mariadb
@@ -9,11 +8,18 @@ A Helm chart for running MariaDB database
 
 ## Installing the Chart
 
-To install the chart with the release name `my-release`:
+To install the chart with the release name `my-release`, you have two options:
 
+### Install via Repository
 ```console
 helm repo add mariadb https://gitlab.souvap-univention.de/api/v4/projects/86/packages/helm/stable
-helm install my-release mariadb/mariadb
+helm install my-release --version 2.1.0 mariadb/mariadb
+```
+
+### Install via OCI Registry
+```console
+helm repo add mariadb oci://registry.souvap-univention.de/souvap/tooling/charts/mariadb
+helm install my-release --version 2.1.0 mariadb/mariadb
 ```
 
 ## Requirements
@@ -32,6 +38,7 @@ helm install my-release mariadb/mariadb
 | containerSecurityContext.allowPrivilegeEscalation | bool | `false` | Enable container privileged escalation. |
 | containerSecurityContext.capabilities | object | `{"drop":["ALL"]}` | Security capabilities for container. |
 | containerSecurityContext.enabled | bool | `true` | Enable security context. |
+| containerSecurityContext.privileged | bool | `false` | Run in privileged mode. |
 | containerSecurityContext.readOnlyRootFilesystem | bool | `true` | Mounts the container's root filesystem as read-only. |
 | containerSecurityContext.runAsGroup | int | `1001` | Process group id. |
 | containerSecurityContext.runAsNonRoot | bool | `true` | Run container as user. |
@@ -51,15 +58,15 @@ helm install my-release mariadb/mariadb
 | image.imagePullPolicy | string | `"IfNotPresent"` | Define an ImagePullPolicy.  Ref.: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy  "IfNotPresent" => The image is pulled only if it is not already present locally. "Always" => Every time the kubelet launches a container, the kubelet queries the container image registry to             resolve the name to an image digest. If the kubelet has a container image with that exact digest cached             locally, the kubelet uses its cached image; otherwise, the kubelet pulls the image with the resolved             digest, and uses that image to launch the container. "Never" => The kubelet does not try fetching the image. If the image is somehow already present locally, the            kubelet attempts to start the container; otherwise, startup fails. |
 | image.registry | string | `""` | Container registry address. This setting has higher precedence than global.registry. |
 | image.repository | string | `"mariadb"` | Container repository string. |
-| image.tag | string | `"11.0"` | Define image tag. |
+| image.tag | string | `"11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"` | Define image tag. |
 | imagePullSecrets | list | `[]` | Credentials to fetch images from private registry. Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/  imagePullSecrets:   - "docker-registry"  |
 | job.databases | list | `[]` | Bootstrap databases into mariadb server. When databases already exists, they will stay untouched.  databases:  - name: "name_of_database"    user: "existing_user_which_will_get_grant" |
 | job.enabled | bool | `true` | Enable database bootstrapping. |
-| job.image | object | `{"imagePullPolicy":"IfNotPresent","registry":"","repository":"mariadb","tag":"11.0"}` | Job image. |
-| job.image.imagePullPolicy | string | `"IfNotPresent"` | Define an ImagePullPolicy.  Ref.: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy  "IfNotPresent" => The image is pulled only if it is not already present locally. "Always" => Every time the kubelet launches a container, the kubelet queries the container image registry to             resolve the name to an image digest. If the kubelet has a container image with that exact digest cached             locally, the kubelet uses its cached image; otherwise, the kubelet pulls the image with the resolved             digest, and uses that image to launch the container. "Never" => The kubelet does not try fetching the image. If the image is somehow already present locally, the            kubelet attempts to start the container; otherwise, startup fails.  |
+| job.image | object | `{"imagePullPolicy":"IfNotPresent","registry":"","repository":"mariadb","tag":"11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"}` | Job image. |
+| job.image.imagePullPolicy | string | `"IfNotPresent"` | Define an ImagePullPolicy.  Ref.: https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy  "IfNotPresent" => The image is pulled only if it is not already present locally. "Always" => Every time the kubelet launches a container, the kubelet queries the container image registry to             resolve the name to an image digest. If the kubelet has a container image with that exact digest             cached locally, the kubelet uses its cached image; otherwise, the kubelet pulls the image with the             resolved digest, and uses that image to launch the container. "Never" => The kubelet does not try fetching the image. If the image is somehow already present locally, the            kubelet attempts to start the container; otherwise, startup fails.  |
 | job.image.registry | string | `""` | Container registry address. This setting has higher precedence than global.registry. |
 | job.image.repository | string | `"mariadb"` | Container repository string. |
-| job.image.tag | string | `"11.0"` | Define image tag. |
+| job.image.tag | string | `"11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"` | Define image tag. |
 | job.retries | int | `6` | Amount of retries while waiting for mariadb server is available. |
 | job.users | list | `[]` | Bootstrap users into mariadb server. When users already exists, they will stay untouched.  users:   - username: "name_of_user"     password: "RandomPassword0#" |
 | job.wait | int | `10` | Time to wait in each wait in each iteration until mariadb server is available. |

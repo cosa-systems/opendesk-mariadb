@@ -1,3 +1,10 @@
+# [2.1.0](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.2...v2.1.0) (2023-09-12)
+
+
+### Features
+
+* **mariadb:** Use updated binary pathes to support 11.1.x ([2fbc7b3](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/commit/2fbc7b3e781d05b0f2608eb679ef00b7b888eae7))
+
 ## [2.0.2](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.1...v2.0.2) (2023-08-23)
 
 
