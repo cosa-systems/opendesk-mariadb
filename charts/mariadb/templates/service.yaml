@@ -41,7 +41,7 @@ spec:
     {{- range $key, $value := .Values.service.ports }}
     - name: {{ $key | quote }}
       port: {{ $value.port }}
-      targetPort: {{ $key | quote }}
+      targetPort: {{ $key }}
       protocol: {{ $value.protocol | default "TCP" | quote }}
       {{- if and $value.nodePort (not (eq $.Values.service.type "ClusterIP")) }}
       nodePort: {{ $value.nodePort }}
