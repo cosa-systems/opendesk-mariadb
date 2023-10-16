@@ -13,13 +13,13 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add mariadb https://gitlab.souvap-univention.de/api/v4/projects/86/packages/helm/stable
-helm install my-release --version 2.1.0 mariadb/mariadb
+helm install my-release --version 2.1.1 mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
 helm repo add mariadb oci://registry.souvap-univention.de/souvap/tooling/charts/mariadb
-helm install my-release --version 2.1.0 mariadb/mariadb
+helm install my-release --version 2.1.1 mariadb/mariadb
 ```
 
 ## Requirements

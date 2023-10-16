@@ -1,3 +1,11 @@
+## [2.1.1](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.1.0...v2.1.1) (2023-10-16)
+
+
+### Bug Fixes
+
+* **mariadb:** Don't quote targetPort ([39e0954](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/commit/39e0954574c9dd341e68d2f1ac8a704ecbf41df1))
+* **mariadb:** Use "| quote" wherever possible ([9e769b0](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/commit/9e769b0d38aa66d5ac163ead3531197027df82df))
+
 # [2.1.0](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.0.2...v2.1.0) (2023-09-12)
 
 
