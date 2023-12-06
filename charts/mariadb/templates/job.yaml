@@ -19,7 +19,9 @@ metadata:
     {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" . ) | nindent 4 }}
     {{- end }}
     "helm.sh/hook": "post-install,post-upgrade"
+    {{- if .Values.cleanup.deletePodsOnSuccess }}
     "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+    {{- end }}
 spec:
   template:
     metadata:
