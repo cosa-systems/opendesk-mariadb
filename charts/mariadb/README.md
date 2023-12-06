@@ -12,14 +12,14 @@ To install the chart with the release name `my-release`, you have two options:
 
 ### Install via Repository
 ```console
-helm repo add mariadb https://gitlab.souvap-univention.de/api/v4/projects/86/packages/helm/stable
-helm install my-release --version 2.1.1 mariadb/mariadb
+helm repo add opendesk-mariadb https://gitlab.opencode.de/api/v4/projects/1387/packages/helm/stable
+helm install my-release --version 2.2.0 opendesk-mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
-helm repo add mariadb oci://registry.souvap-univention.de/souvap/tooling/charts/mariadb
-helm install my-release --version 2.1.1 mariadb/mariadb
+helm repo add opendesk-mariadb oci://registry.opencode.de/bmi/opendesk/components/charts/opendesk-mariadb
+helm install my-release --version 2.2.0 opendesk-mariadb/mariadb
 ```
 
 ## Requirements
@@ -33,6 +33,7 @@ helm install my-release --version 2.1.1 mariadb/mariadb
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for pod assignment. Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set. |
+| cleanup.deletePodsOnSuccess | bool | `true` | Keep Pods/Job logs after successful run. |
 | commonAnnotations | object | `{}` | Additional custom annotations to add to all deployed objects. |
 | commonLabels | object | `{}` | Additional custom labels to add to all deployed objects. |
 | containerSecurityContext.allowPrivilegeEscalation | bool | `false` | Enable container privileged escalation. |
@@ -144,68 +145,61 @@ helm uninstall my-release
 
 ## Signing
 
-### Chart
-
 Helm charts are signed with helm native signing method. You can verify the charts against this GPG key:
 
 ```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-XD85LYkPgsax8WY=
-=cFEh
+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
+=7iSt
 -----END PGP PUBLIC KEY BLOCK-----
-```
-
-### Images
-
-Container images are signed via [cosign](https://github.com/sigstore/cosign) and can be verified with:
-
-```
------BEGIN PUBLIC KEY-----
-MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAETIpFd4qC4ThMC4PmFIPulqFVhfD/
-1ujC+TfS7hTH7X06tleO6a2Gl2Vkn0k88A4LDmvFfNFoHRnEhVsjcLDNDw==
------END PUBLIC KEY-----
-
-```
-
-```
-cosign verify --key cosign.pub --insecure-ignore-tlog <image>
 ```
 
 ## License

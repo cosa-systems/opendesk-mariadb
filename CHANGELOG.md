@@ -1,3 +1,10 @@
+# [2.2.0](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-mariadb/compare/v2.1.1...v2.2.0) (2023-12-06)
+
+
+### Features
+
+* **mariadb:** [[#1](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-mariadb/issues/1)] Add cleanup flag to configure job deletion on success ([af5263d](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-mariadb/commit/af5263d4d61a67eb0b53973bf5921843c05e8505))
+
 ## [2.1.1](https://gitlab.souvap-univention.de/souvap/tooling/charts/mariadb/compare/v2.1.0...v2.1.1) (2023-10-16)
 
 
