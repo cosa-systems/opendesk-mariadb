@@ -32,17 +32,16 @@ To install the release with name `my-release`:
 ```bash
 helm uninstall my-release
 ```
-
 ## Signing
 
-Helm charts are signed with helm native signing method. You can verify the charts against this GPG key:
+Helm charts are signed with helm native signing method.
 
-```
-${GPG_SIGNING_KEY_PUB}
-```
+You can verify the chart against [the public GPG key](../../files/gpg-pubkeys/opendesk.gpg).
 
 ## License
+
 This project uses the following license: Apache-2.0
 
 ## Copyright
+
 Copyright (C) 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
