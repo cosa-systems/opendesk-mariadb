@@ -1,3 +1,10 @@
+## [2.2.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.2.0...v2.2.1) (2023-12-21)
+
+
+### Bug Fixes
+
+* Update Signing and add GPG key ([b3c0529](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/b3c0529618db12f9211d9a76ed476546e2e6bd6a))
+
 # [2.2.0](https://gitlab.opencode.de/bmi/opendesk/components/charts/opendesk-mariadb/compare/v2.1.1...v2.2.0) (2023-12-06)
 
 
