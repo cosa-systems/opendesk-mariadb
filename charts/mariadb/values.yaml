@@ -164,11 +164,13 @@ job:
   # -- Time to wait in each wait in each iteration until mariadb server is available.
   wait: 10
 
-  # -- Bootstrap users into mariadb server. When users already exists, they will stay untouched.
+  # -- Bootstrap users into mariadb server. When a user already exists its password and user specific
+  # connectionLimit are updated.
   #
   # users:
   #   - username: "name_of_user"
   #     password: "RandomPassword0#"
+  #     connectionLimit: 10
   users: []
 
   # -- Bootstrap databases into mariadb server. When databases already exists, they will stay untouched.
