@@ -1,3 +1,10 @@
+# [2.3.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.2.1...v2.3.0) (2024-08-15)
+
+
+### Features
+
+* **init:** Support for user based connection limits and password update. ([febcdd3](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/febcdd3e0dce8bf12254d15bab124d885bfe027f))
+
 ## [2.2.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.2.0...v2.2.1) (2023-12-21)
 
 

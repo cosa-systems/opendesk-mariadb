@@ -13,13 +13,13 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add opendesk-mariadb https://gitlab.opencode.de/api/v4/projects/1387/packages/helm/stable
-helm install my-release --version 2.2.1 opendesk-mariadb/mariadb
+helm install my-release --version 2.3.0 opendesk-mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
 helm repo add opendesk-mariadb oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb
-helm install my-release --version 2.2.1 opendesk-mariadb/mariadb
+helm install my-release --version 2.3.0 opendesk-mariadb/mariadb
 ```
 
 ## Requirements
@@ -69,7 +69,7 @@ helm install my-release --version 2.2.1 opendesk-mariadb/mariadb
 | job.image.repository | string | `"mariadb"` | Container repository string. |
 | job.image.tag | string | `"11.1.2-jammy@sha256:b6440c4f4e1471bdcee202e4c4e21c1f93af87421f6d33028363dd224e54f481"` | Define image tag. |
 | job.retries | int | `6` | Amount of retries while waiting for mariadb server is available. |
-| job.users | list | `[]` | Bootstrap users into mariadb server. When users already exists, they will stay untouched.  users:   - username: "name_of_user"     password: "RandomPassword0#" |
+| job.users | list | `[]` | Bootstrap users into mariadb server. When a user already exists its password and user specific connectionLimit are updated.  users:   - username: "name_of_user"     password: "RandomPassword0#"     connectionLimit: 10 |
 | job.wait | int | `10` | Time to wait in each wait in each iteration until mariadb server is available. |
 | lifecycleHooks | object | `{}` | Lifecycle to automate configuration before or after startup. |
 | livenessProbe.enabled | bool | `true` | Enables kubernetes LivenessProbe. |
