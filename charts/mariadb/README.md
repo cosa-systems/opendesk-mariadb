@@ -13,13 +13,13 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add opendesk-mariadb https://gitlab.opencode.de/api/v4/projects/1387/packages/helm/stable
-helm install my-release --version 2.3.0 opendesk-mariadb/mariadb
+helm install my-release --version 2.3.1 opendesk-mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
 helm repo add opendesk-mariadb oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb
-helm install my-release --version 2.3.0 opendesk-mariadb/mariadb
+helm install my-release --version 2.3.1 opendesk-mariadb/mariadb
 ```
 
 ## Requirements
@@ -34,6 +34,7 @@ helm install my-release --version 2.3.0 opendesk-mariadb/mariadb
 |-----|------|---------|-------------|
 | affinity | object | `{}` | Affinity for pod assignment. Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity Note: podAffinityPreset, podAntiAffinityPreset, and nodeAffinityPreset will be ignored when it's set. |
 | cleanup.deletePodsOnSuccess | bool | `true` | Keep Pods/Job logs after successful run. |
+| cleanup.deletePodsOnSuccessTimeout | int | `3600` | When deletePodsOnSuccess is enabled, the pod will be deleted after configured seconds. |
 | commonAnnotations | object | `{}` | Additional custom annotations to add to all deployed objects. |
 | commonLabels | object | `{}` | Additional custom labels to add to all deployed objects. |
 | containerSecurityContext.allowPrivilegeEscalation | bool | `false` | Enable container privileged escalation. |

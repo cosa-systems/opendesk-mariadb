@@ -1,3 +1,10 @@
+## [2.3.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.3.0...v2.3.1) (2024-08-19)
+
+
+### Bug Fixes
+
+* User specific connection support. ([2b49809](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/2b49809b5697cfdd52b79f08ff2af6239eab89fc))
+
 # [2.3.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.2.1...v2.3.0) (2024-08-15)
 
 
