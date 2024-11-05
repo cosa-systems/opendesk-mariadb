@@ -1,15 +1,17 @@
+# SPDX-FileCopyrightText: 2024 Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH
 # SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
 # SPDX-License-Identifier: Apache-2.0
 ---
 annotations:
   category: "Database"
+  licenses: "Apache-2.0"
 apiVersion: "v2"
 dependencies:
   - name: "common"
-    repository: "https://charts.bitnami.com/bitnami"
+    repository: "oci://registry.opencode.de/bmi/opendesk/components/external/charts/bitnami-charts"
+    version: "^2.x.x"
     tags:
       - "bitnami-common"
-    version: "2.x.x"
 description: "A Helm chart for running MariaDB database"
 home: "https://zendis.de"
 keywords:
