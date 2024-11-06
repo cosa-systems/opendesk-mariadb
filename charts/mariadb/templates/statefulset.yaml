@@ -1,4 +1,5 @@
 {{/*
+SPDX-FileCopyrightText: 2024 Zentrum für Digitale Souveränität der Öffentlichen Verwaltung (ZenDiS) GmbH
 SPDX-FileCopyrightText: 2023 Bundesministerium des Innern und für Heimat, PG ZenDiS "Projektgruppe für Aufbau ZenDiS"
 SPDX-License-Identifier: Apache-2.0
 */}}
@@ -88,7 +89,10 @@ spec:
           imagePullPolicy: {{ .Values.image.imagePullPolicy }}
           env:
             - name: "MARIADB_ROOT_PASSWORD"
-              value: {{ tpl .Values.mariadb.rootPassword . | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{- .Values.mariadb.rootPassword.existingSecret.name | default (printf "%s" (include "common.names.fullname" .)) }}
+                  key: {{- .Values. | default "rootPassword" }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" . ) | nindent 12 }}
             {{- end }}
