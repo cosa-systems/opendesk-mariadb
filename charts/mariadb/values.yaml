@@ -206,7 +206,7 @@ mariadb:
   # -- MariaDB additional configuration to be injected as ConfigMap.
   configuration: ""
   rootPassword:
-    # -- Database root password as plain value (fallback if no secret exists inside of Kubernetes).
+    # -- Database root password as plain value.
     value: "BETTER_CHANGE_ME"
     # Database root password from existing secret (higher precedence than plain value)
     existingSecret:
