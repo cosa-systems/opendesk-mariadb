@@ -1,3 +1,21 @@
+# [3.0.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.3.1...v3.0.0) (2024-11-06)
+
+
+### Bug Fixes
+
+* Added missing part to template keys ([ed8e26a](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/ed8e26a440491fa8edf8c35bd5eeb185a1c2112b))
+
+
+### Features
+
+* **opendesk-mariadb:** Added support for secrets ([501ffb1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/501ffb192e03b5368eef0ef60dbde0184180ce7d))
+
+
+### BREAKING CHANGES
+
+* **opendesk-mariadb:** Environment variable MARIADB_ROOT_PASSWORD is now propagated with the
+help of a Kubernetes secret instead of a plain value
+
 ## [2.3.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.3.0...v2.3.1) (2024-08-19)
 
 

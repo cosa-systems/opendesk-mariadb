@@ -13,20 +13,20 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add opendesk-mariadb https://gitlab.opencode.de/api/v4/projects/1387/packages/helm/stable
-helm install my-release --version 2.3.1 opendesk-mariadb/mariadb
+helm install my-release --version 3.0.0 opendesk-mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
 helm repo add opendesk-mariadb oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb
-helm install my-release --version 2.3.1 opendesk-mariadb/mariadb
+helm install my-release --version 3.0.0 opendesk-mariadb/mariadb
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | common | 2.x.x |
+| oci://registry.opencode.de/bmi/opendesk/components/external/charts/bitnami-charts | common | ^2.x.x |
 
 ## Values
 
@@ -80,7 +80,9 @@ helm install my-release --version 2.3.1 opendesk-mariadb/mariadb
 | livenessProbe.successThreshold | int | `1` | Number of successful executions after failed ones until container is marked healthy. |
 | livenessProbe.timeoutSeconds | int | `5` | Timeout for command return. |
 | mariadb.configuration | string | `""` | MariaDB additional configuration to be injected as ConfigMap. |
-| mariadb.rootPassword | string | `"BETTER_CHANGE_ME"` | Database root password. |
+| mariadb.rootPassword.existingSecret.key | string | `""` | Key inside the Kubernetes secret that contains the root password for the database. |
+| mariadb.rootPassword.existingSecret.name | string | `""` | Name of the Kubernetes secret that contains the root password for the database. |
+| mariadb.rootPassword.value | string | `"BETTER_CHANGE_ME"` | Database root password as plain value. |
 | nameOverride | string | `""` | String to partially override release name. |
 | nodeSelector | object | `{}` | Node labels for pod assignment. Ref: https://kubernetes.io/docs/user-guide/node-selection/ |
 | persistence.accessModes | list | `["ReadWriteOnce"]` | The volume access modes, some of "ReadWriteOnce", "ReadOnlyMany", "ReadWriteMany", "ReadWriteOncePod".  "ReadWriteOnce" => The volume can be mounted as read-write by a single node. ReadWriteOnce access mode still can                    allow multiple pods to access the volume when the pods are running on the same node. "ReadOnlyMany" => The volume can be mounted as read-only by many nodes. "ReadWriteMany" => The volume can be mounted as read-write by many nodes. "ReadWriteOncePod" => The volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod access mode if                       you want to ensure that only one pod across whole cluster can read that PVC or write to it.  |
