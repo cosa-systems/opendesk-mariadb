@@ -1,3 +1,10 @@
+## [3.0.1](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v3.0.0...v3.0.1) (2024-11-07)
+
+
+### Bug Fixes
+
+* **mariadb:** Fix rootPassword template issue ([a745bf5](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/a745bf53d84f460bb87be89736277c435e42a851))
+
 # [3.0.0](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v2.3.1...v3.0.0) (2024-11-06)
 
 

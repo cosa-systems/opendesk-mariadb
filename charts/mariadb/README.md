@@ -13,13 +13,13 @@ To install the chart with the release name `my-release`, you have two options:
 ### Install via Repository
 ```console
 helm repo add opendesk-mariadb https://gitlab.opencode.de/api/v4/projects/1387/packages/helm/stable
-helm install my-release --version 3.0.0 opendesk-mariadb/mariadb
+helm install my-release --version 3.0.1 opendesk-mariadb/mariadb
 ```
 
 ### Install via OCI Registry
 ```console
 helm repo add opendesk-mariadb oci://registry.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb
-helm install my-release --version 3.0.0 opendesk-mariadb/mariadb
+helm install my-release --version 3.0.1 opendesk-mariadb/mariadb
 ```
 
 ## Requirements
