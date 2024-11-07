@@ -205,6 +205,8 @@ livenessProbe:
 mariadb:
   # -- MariaDB additional configuration to be injected as ConfigMap.
   configuration: ""
+
+  # Database root password
   rootPassword:
     # -- Database root password as plain value.
     value: "BETTER_CHANGE_ME"
