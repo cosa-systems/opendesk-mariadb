@@ -1,3 +1,10 @@
+## [3.0.3](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v3.0.2...v3.0.3) (2024-11-14)
+
+
+### Bug Fixes
+
+* Changed {{- to {{ so that values are properly spaced from keys ([94da3fe](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/commit/94da3fe3c8cbe5f376a15dadd761a04f0f54bef8))
+
 ## [3.0.2](https://gitlab.opencode.de/bmi/opendesk/components/platform-development/charts/opendesk-mariadb/compare/v3.0.1...v3.0.2) (2024-11-14)
 
 
