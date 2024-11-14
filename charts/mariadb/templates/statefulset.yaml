@@ -91,8 +91,8 @@ spec:
             - name: "MARIADB_ROOT_PASSWORD"
               valueFrom:
                 secretKeyRef:
-                  name: {{- .Values.mariadb.rootPassword.existingSecret.name | default (printf "%s" (include "common.names.fullname" .)) }}
-                  key: {{- .Values.mariadb.rootPassword.existingSecret.key | default "rootPassword" }}
+                  name: {{ .Values.mariadb.rootPassword.existingSecret.name | default (printf "%s" (include "common.names.fullname" .)) }}
+                  key: {{ .Values.mariadb.rootPassword.existingSecret.key | default "rootPassword" }}
             {{- if .Values.extraEnvVars }}
             {{- include "common.tplvalues.render" (dict "value" .Values.extraEnvVars "context" . ) | nindent 12 }}
             {{- end }}
