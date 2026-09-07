@@ -170,9 +170,19 @@ job:
   # -- Bootstrap users into mariadb server. When a user already exists its password and user specific
   # connectionLimit are updated.
   #
+  # The password can be given as a plain value, or read from an existing secret. With
+  # `existingSecret` the password is passed to the bootstrap job as an environment variable and the
+  # user's statements are issued from `init-user.sh`, so it is not written into
+  # `init-user-data.sql`.
+  #
   # users:
   #   - username: "name_of_user"
   #     password: "RandomPassword0#"
+  #     connectionLimit: 10
+  #   - username: "name_of_other_user"
+  #     existingSecret:
+  #       name: "name-of-secret"
+  #       key: "password"
   #     connectionLimit: 10
   users: []
 
